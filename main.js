@@ -38,7 +38,7 @@ function init() {
         .addEventListener('click', multiplyByAll);
         
     // When the user clicks the divide button, divide the value from each item.
-    document.querySelector('#divide')
+    document.queryselector('#divide')
         .addEventListener('click', divideFromAll);
 }
 
@@ -55,13 +55,12 @@ function appendToList(event) {
 
     // Get the value we're going to append from the input field.
     const stringifiedNumber = document.querySelector('#list-number').value;
-
-    const number = parseInt(stringifiedNumber, 10);
+    const number = parseFloat(stringifiedNumber);
 
     // Append the number to our array.
     // Hint: here (and elsewhere), watch the TYPE of the value above.
     // Research `typeof` operator if you're not sure.
-    numbers.push(number);
+    numbers = numbers + number;
 
     // Update our html.
     updateUL();
@@ -73,8 +72,7 @@ function removeFromList(event) {
     event.preventDefault();
 
     // Get the index we'll remove from the input field.
-    const stringifiedIndex = document.querySelector('#list-number').value;
-    const index = parseInt(stringifiedIndex, 10);
+    const index = document.querySelector('#listNumber').value;
 
     // Remove the number at that index from the list.
     /*
@@ -90,7 +88,6 @@ function removeFromList(event) {
    numbers.splice(index, 1);
     // Update our html.
     updateUL();
-
 }
 
 function clearList(event) {
@@ -103,7 +100,6 @@ function clearList(event) {
     }
 
     // Update our html.
-    updateUL();
 }
 
 /*
@@ -116,13 +112,12 @@ function clearList(event) {
 function addToAll(event) {
     // Make sure page doesn't reload on button press.
     event.preventDefault();
-
     // Grab value to add.
     const stringifiedNumber = document.querySelector('#number-for-math').value;
-    const numberToAdd = parseInt(stringifiedNumber, 10);
+    const numberToAdd = parseFloat(stringifiedNumber);
 
     // Add value to everything on the list.
-    for(let i = 0; i < numbers.length; i++) {
+    for(const i = 0; i < numbers.length; i++) {
         numbers[i] = numbers[i] + numberToAdd;
     }
 
@@ -136,10 +131,10 @@ function subtractFromAll(event) {
     
     // Grab value to subtract.
     const stringifiedNumber = document.querySelector('#number-for-math').value;
-    const numberToSubtract = parseInt(stringifiedNumber, 10);
+    const numberToSubtract = parseFloat(stringifiedNumber);
     
     // Subtract value from everything on the list.
-    for(let i = 0; i < numbers.length; i++) {
+    for(let i = 1; i < numbers.length; i++) {
         numbers[i] = numbers[i] - numberToSubtract;
     }
 
@@ -154,10 +149,10 @@ function multiplyByAll(event) {
     
     // Grab value to multply by.
     const stringifiedNumber = document.querySelector('#number-for-math').value;
-    const numberToMultiply = parseInt(stringifiedNumber, 10);
+    const numberToMultiply = parseFloat(stringifiedNumber);
     
     // Multiply value by everything on the list.
-    for(let i = 0; i < numbers.length; i++) {
+    for(let i = 0; i <= numbers.length; i++) {
         numbers[i] = numbers[i] * numberToMultiply;
     }
     
@@ -170,8 +165,8 @@ function divideFromAll(event) {
     event.preventDefault();
 
     // Grab value to divide from.
-    const stringifiedNumber = document.querySelector('#number-for-math').value;
-    const numberToDivide = parseInt(stringifiedNumber, 10);
+    const stringifiedNumber = document.querySelector('#numberForMath').value;
+    const numberToDivide = parseFloat(stringifiedNumber);
 
     // Divide value from everything on the list.
     for(let i = 0; i < numbers.length; i++) {
@@ -190,7 +185,6 @@ function divideFromAll(event) {
 */
 
 function updateUL() {
-    clearUL();
     for (let i = 0; i < numbers.length; i++) {
         addToUL(numbers[i]);
     }
@@ -198,7 +192,7 @@ function updateUL() {
 
 function clearUL() {
     const ul = document.querySelector('#number-list');
-    while (ul.hasChildNodes()) {
+    if (ul.hasChildNodes()) {
         ul.removeChild(ul.firstChild);
     }
 }
@@ -206,7 +200,7 @@ function clearUL() {
 // Append to the UL.
 function addToUL(numberToAppend) {
     const ul = document.querySelector('#number-list');
-    const newLI = document.createElement('li');
+    const newLI = document.createElement('<li>');
     newLI.innerText = numberToAppend;
     ul.appendChild(newLI);
 }
