@@ -38,7 +38,7 @@ function init() {
         .addEventListener('click', multiplyByAll);
         
     // When the user clicks the divide button, divide the value from each item.
-    document.queryselector('#divide')
+    document.querySelector('#divide')
         .addEventListener('click', divideFromAll);
 }
 
@@ -60,7 +60,7 @@ function appendToList(event) {
     // Append the number to our array.
     // Hint: here (and elsewhere), watch the TYPE of the value above.
     // Research `typeof` operator if you're not sure.
-    numbers = numbers + number;
+    numbers.push(number)
 
     // Update our html.
     updateUL();
@@ -72,7 +72,7 @@ function removeFromList(event) {
     event.preventDefault();
 
     // Get the index we'll remove from the input field.
-    const index = document.querySelector('#listNumber').value;
+    const index = document.querySelector('#list-number').value;
 
     // Remove the number at that index from the list.
     /*
@@ -100,6 +100,7 @@ function clearList(event) {
     }
 
     // Update our html.
+    updateUL();
 }
 
 /*
@@ -117,7 +118,7 @@ function addToAll(event) {
     const numberToAdd = parseFloat(stringifiedNumber);
 
     // Add value to everything on the list.
-    for(const i = 0; i < numbers.length; i++) {
+    for(let i = 0; i < numbers.length; i++) {
         numbers[i] = numbers[i] + numberToAdd;
     }
 
@@ -134,7 +135,7 @@ function subtractFromAll(event) {
     const numberToSubtract = parseFloat(stringifiedNumber);
     
     // Subtract value from everything on the list.
-    for(let i = 1; i < numbers.length; i++) {
+    for(let i = 0; i < numbers.length; i++) {
         numbers[i] = numbers[i] - numberToSubtract;
     }
 
@@ -152,7 +153,7 @@ function multiplyByAll(event) {
     const numberToMultiply = parseFloat(stringifiedNumber);
     
     // Multiply value by everything on the list.
-    for(let i = 0; i <= numbers.length; i++) {
+    for(let i = 0; i < numbers.length; i++) {
         numbers[i] = numbers[i] * numberToMultiply;
     }
     
@@ -165,7 +166,7 @@ function divideFromAll(event) {
     event.preventDefault();
 
     // Grab value to divide from.
-    const stringifiedNumber = document.querySelector('#numberForMath').value;
+    const stringifiedNumber = document.querySelector('#number-for-math').value;
     const numberToDivide = parseFloat(stringifiedNumber);
 
     // Divide value from everything on the list.
@@ -185,6 +186,7 @@ function divideFromAll(event) {
 */
 
 function updateUL() {
+    clearUL();
     for (let i = 0; i < numbers.length; i++) {
         addToUL(numbers[i]);
     }
@@ -192,15 +194,17 @@ function updateUL() {
 
 function clearUL() {
     const ul = document.querySelector('#number-list');
-    if (ul.hasChildNodes()) {
-        ul.removeChild(ul.firstChild);
+    while(ul.firstChild){
+        if (ul.hasChildNodes()) {
+            ul.removeChild(ul.firstChild);
+        }
     }
 }
 
 // Append to the UL.
 function addToUL(numberToAppend) {
     const ul = document.querySelector('#number-list');
-    const newLI = document.createElement('<li>');
+    const newLI = document.createElement('li');
     newLI.innerText = numberToAppend;
     ul.appendChild(newLI);
 }
